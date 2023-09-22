@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        .bmi-container {
+            margin: 50px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .bmi-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .bmi-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .bmi-button:hover {
+            background-color: #0056b3;
+        }
+
+        .bmi-result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .bmi-image {
+            max-width: 500px;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <div class="container">
+           
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top me-2">
+                HEALTHIFY
+            </a>
+    
+           
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="remedy.html">Remedies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5000">Wound Detector</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="bmi.html">BMI Calculator</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        
+        <div class="bmi-container">
+            <h2>BMI Calculator</h2>
+            <form>
+                <input type="number" class="bmi-input" id="height-input" placeholder="Enter your height (in meters)">
+                <input type="number" class="bmi-input" id="weight-input" placeholder="Enter your weight (in kilograms)">
+                <button type="button" class="bmi-button" id="calculate-button">Calculate BMI</button>
+            </form>
+            <div class="bmi-result" id="bmi-result">
+                
+            </div>
+            <img src="" class="bmi-image" id="bmi-image" alt="">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        
+        document.getElementById("calculate-button").addEventListener("click", function () {
+            const heightInput = parseFloat(document.getElementById("height-input").value);
+            const weightInput = parseFloat(document.getElementById("weight-input").value);
+            const bmiResult = document.getElementById("bmi-result");
+            const bmiImage = document.getElementById("bmi-image");
+
+            if (isNaN(heightInput) || isNaN(weightInput) || heightInput <= 0 || weightInput <= 0 || heightInput > 3 || weightInput > 300) {
+                
+                bmiResult.textContent = "Enter valid HEIGHT and WEIGHT!";
+                bmiImage.src = ""; 
+            } else {
+                
+                const bmi = (weightInput / (heightInput * heightInput)).toFixed(2);
+
+                bmiResult.textContent = `Your BMI: ${bmi}`;
+                if (bmi < 18.5) {
+                    bmiImage.src = "BMI/lean.jpg"; 
+                } else if (bmi >= 18.5 && bmi < 25) {
+                    bmiImage.src = "BMI/fit.jpg";
+                } else {
+                    bmiImage.src = "BMI/obese.jpg";
+                }
+
+                document.getElementById("height-input").value = "";
+                document.getElementById("weight-input").value = "";
+            }
+        });
+    </script>
+</body>
+</html>

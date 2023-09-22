@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .carousel-container {
+            margin-top:auto;
+            margin-right: auto;
+            margin-left:auto;
+            margin-bottom:100px;
+            display: flex;
+            justify-content: center;
+            width: 900px;
+            height: 450px;
+        }
+
+        .carousel-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .carousel-indicators {
+            display: none;
+        }
+
+        .navbar-logo {
+            position: absolute;
+            height: auto;
+            left: 0px;
+            margin-top: 0%;
+            max-width: 75px;
+            height: 50px;
+        }
+
+        .description-container {
+            margin-top: 30px;
+            background-color: #f5f5f5; 
+            padding: 20px; 
+            border-radius: 10px; 
+        }
+
+        h2 {
+            color: #333; 
+        }
+
+        h3 {
+            color: #007bff; 
+        }
+
+
+        .about-paragraph {
+            color: #555; 
+        }
+
+        .feature-paragraph {
+            color: #555; 
+        }
+    </style>
+</head>
+<body>
+   
+   <div id="navbar-container"></div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="Logo" width="50" height="40" class="d-inline-block align-text-top me-2">
+                HEALTHIFY
+            </a>
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="remedy.html">Remedies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5000">Wound Detector</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bmi.html">BMI Calculator</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="carousel-container">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" id="image-carousel">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4 description-container">
+        <h2>About Healthify</h2>
+        <p class="about-paragraph">
+            <strong>HEALTHIFY</strong> is your ultimate health and wellness companion. 
+            Our web application is designed to support your journey to a healthier lifestyle with a range of features.
+        </p>
+
+        <h3>Features</h3>
+        <ul>
+            <li class="feature-paragraph">
+                <strong>Remedy Finder:</strong> Discover natural home remedies for a wide range of common health issues.
+            </li>
+            <li class="feature-paragraph">
+                <strong>BMI Calculator:</strong> Calculate your Body Mass Index (BMI) to understand your fitness level. 
+                Get results categorized into obese, fit, and lean.
+            </li>
+        </ul>
+
+        <h3>Why Choose HEALTHIFY?</h3>
+        <p class="about-paragraph">
+            With <strong>HEALTHIFY</strong>, you can take control of your health and well-being. 
+            Our easy-to-use features provide valuable insights and solutions to improve your health and maintain a balanced lifestyle.
+        </p>
+
+        <p class="about-paragraph">
+            Whether you're looking for holistic remedies or need assistance in managing your fitness goals, 
+            <strong>HEALTHIFY</strong> is your trusted partner in health and wellness. Join us today and embark on a journey to a healthier you!
+        </p>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var imageUrls = ["Slides/Slide1.jpg", "Slides/Slide2.jpg", "Slides/Slide3.jpg", "Slides/Slide4.jpg", "Slides/Slide5.jpg", "Slides/Slide6.jpg", "Slides/Slide7.jpg"];
+
+        function loadRandomImages() {
+            var carouselInner = document.getElementById("image-carousel");
+            carouselInner.innerHTML = "";
+
+            imageUrls = shuffleArray(imageUrls);
+
+            var selectedImages = imageUrls.slice(0, 3);
+
+            
+            localStorage.setItem("selectedImages", JSON.stringify(selectedImages));
+
+            
+            for (var i = 0; i < 3; i++) {
+                var img = document.createElement("img");
+                img.src = selectedImages[i];
+                img.classList.add("d-block");
+                img.classList.add("carousel-item");
+                if (i === 0) {
+                    img.classList.add("active");
+                }
+                carouselInner.appendChild(img);
+            }
+        }
+
+        
+        function shuffleArray(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+            return array;
+        }
+        loadRandomImages();
+
+        var storedImages = JSON.parse(localStorage.getItem("selectedImages"));
+        if (storedImages) {
+            imageUrls = storedImages;
+        }
+
+        
+        document.getElementById("carouselExampleIndicators").addEventListener("slid.bs.carousel", function () {
+            loadRandomImages();
+        });
+    </script>
+
+</body>
+</html>
